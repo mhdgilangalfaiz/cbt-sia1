@@ -8,6 +8,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 
 class UserForm
 {
@@ -35,13 +36,23 @@ class UserForm
                     ->required()
                     ->columnSpanFull(),
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label('Alamat email')
                     ->email(),
                 TextInput::make('username')
+                    ->label('Login Username')
+                    // harus unique dengan user yang lain
+                    ->unique(
+                        table: 'users',
+                        column:'username',
+                    )
                     ->required(),
                 TextInput::make('phone')
+                    ->label('Nomor Telepom')
+                    ->prefixIcon(Heroicon::OutlinedPhone)
                     ->tel(),
                 TextInput::make('password')
+                    ->hiddenOn('edit')      //disembunyikan di tabel admin
+                    ->revealable()
                     ->password()
                     ->required(),
                     Toggle::make('is_staff')
