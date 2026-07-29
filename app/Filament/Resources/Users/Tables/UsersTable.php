@@ -30,8 +30,9 @@ class UsersTable
                     )
                     ->width(40),
                 TextColumn::make('name')
-                    ->searchable()     // dapat dicari (search)
-                    ->sortable(),       // dapat diurutkan
+                    ->label('Nama lengkap')
+                    ->searchable()          // dapat dicari (search)
+                    ->sortable(),           // dapat diurutkan
                 TextColumn::make('email')
                     ->label('Email address')
                     ->searchable(),
@@ -40,14 +41,10 @@ class UsersTable
                 TextColumn::make('phone')
                     ->label('Telepon')
                     ->placeholder('-')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(),
                 // IconColumn::make('is_staff')
                 //    ->boolean(),
-                TextColumn::make('photo_path')
-                    ->searchable(),
-                TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->sortable(),
                 TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->dateTime('d F Y, H:i:s')
