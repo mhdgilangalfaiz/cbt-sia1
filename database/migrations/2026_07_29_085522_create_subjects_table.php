@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->boolean('is_active')->default(true);
+            // kolom Soft-Delete 'delete_at'
+            $table->softDeletes();
             $table->timestamps();
         });
     }
