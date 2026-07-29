@@ -17,6 +17,7 @@ return new class extends Migration
             // foreign key untuk relasi table subject
             $table->foreignIdFor(Subject::class)->constrained()->cascadeOnDelete();
             $table->longText('payload');
+            $table->char('correct_answer');
             $table->text('description')->nullable();
             $table->boolean('is_active')->default(true);
             $table->softDeletes();
