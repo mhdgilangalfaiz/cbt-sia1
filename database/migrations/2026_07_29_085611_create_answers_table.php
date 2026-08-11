@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('text');
             $table->boolean('is_correct')->default(false);
             $table->boolean('is_active')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
