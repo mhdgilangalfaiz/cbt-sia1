@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Subjects;
 
+use App\Filament\Resources\Questions\QuestionResource;
 use App\Filament\Resources\Subjects\Pages\ManageSubjects;
 use App\Models\Subject;
 use BackedEnum;
@@ -117,6 +118,10 @@ class SubjectResource extends Resource
                 IconColumn::make('is_active')
                     ->label('Tersedia')
                     ->boolean(),
+                TextColumn::make('questions_count')
+                    ->label('Jumlah Soal')
+                    ->counts('questions')
+                    ->badge(),
                 TextColumn::make('deleted_at')
                     ->label('Dihapus')
                     ->dateTime('d/m/Y H:i:s')
@@ -144,7 +149,13 @@ class SubjectResource extends Resource
                     ->native(false),
             ])
             ->recordActions([
-                ViewAction::make(),
+                ViewAction::make()
+                    ->label('Lihat Soal')
+                    ->url(fn (Subject $record): string => QuestionResource::getUrl('index', [
+                        'filters' => [
+                            'subject_id' => ['value' => $record->id],
+                        ],
+                    ])),
                 EditAction::make(),
                 DeleteAction::make(),
                 ForceDeleteAction::make(),
