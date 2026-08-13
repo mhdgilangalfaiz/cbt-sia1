@@ -27,12 +27,7 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
-    /**
-     * Mengembalikan daftar jawaban dengan label huruf A, B, C, D... berdasarkan
-     * urutan tampil. Ini TIDAK menyimpan huruf ke database (kolom 'letter' pada
-     * tabel answers memang tidak dipakai) — label hanya dihitung ulang setiap
-     * kali data ini diambil.
-     */
+    // Mengembalikan daftar jawaban dengan label huruf A, B, C, D... berdasarkan urutan tampil. Ini TIDAK menyimpan huruf ke database
     public function getAnswersWithLetterAttribute()
     {
         $letters = ['A', 'B', 'C', 'D', 'E', 'F'];
