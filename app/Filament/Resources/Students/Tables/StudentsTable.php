@@ -20,6 +20,7 @@ class StudentsTable
         return $table
             ->columns([
                 TextColumn::make('#')
+                    ->label('No')
                     ->rowIndex()->width(40),
                 TextColumn::make('reg_year')
                     ->label('Stambuk')
