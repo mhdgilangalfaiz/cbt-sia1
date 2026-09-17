@@ -6,10 +6,12 @@ use App\Filament\Resources\Exams\Pages\CreateExam;
 use App\Filament\Resources\Exams\Pages\EditExam;
 use App\Filament\Resources\Exams\Pages\ListExams;
 use App\Filament\Resources\Exams\Pages\ViewExam;
+use App\Filament\Resources\Exams\RelationManagers\SubjectsRelationManager;
 use App\Filament\Resources\Exams\Schemas\ExamForm;
 use App\Filament\Resources\Exams\Schemas\ExamInfolist;
 use App\Filament\Resources\Exams\Tables\ExamsTable;
 use App\Models\Exam;
+use App\Models\Subject;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -42,7 +44,7 @@ class ExamResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            SubjectsRelationManager::class,
         ];
     }
 

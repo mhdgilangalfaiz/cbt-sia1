@@ -27,7 +27,7 @@ class MigrationResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'migration';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Basic Data';
+    protected static string|UnitEnum|null $navigationGroup = 'Basis Data';
 
     protected static ?string $modelLabel = 'Migration';
 

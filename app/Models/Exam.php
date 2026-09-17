@@ -20,6 +20,7 @@ class Exam extends Model
     // Relasi Many - to - many
     public function subjects(): BelongsToMany
     {
-        return $this->belongsToMany(Subject::class);
+        return $this->belongsToMany(Subject::class)
+            ->withPivot('qty');
     }
 }
