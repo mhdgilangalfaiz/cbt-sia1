@@ -24,11 +24,13 @@ class QuestionResource extends Resource
 {
     protected static ?string $model = Question::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedFolderOpen;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Ujian';
+
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $recordTitleAttribute = 'name';
-
-    protected static string|UnitEnum|null $navigationGroup = 'Basis Data';
 
     protected static ?string $modelLabel = 'soal';
 

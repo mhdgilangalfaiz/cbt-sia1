@@ -7,17 +7,8 @@ use App\Filament\Test\Resources\Exams\Pages\StartingExam;
 use App\Models\Exam;
 use BackedEnum;
 use Filament\Actions\Action;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
-use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -32,6 +23,8 @@ class ExamResource extends Resource
 
     protected static ?string $navigationLabel = 'Sesi Ujian';
 
+    protected static ?int $navigationSort = 1;
+
     protected static ?string $modelLabel = 'Ujian';
 
     public static function table(Table $table): Table
@@ -39,24 +32,23 @@ class ExamResource extends Resource
         return $table
             ->modifyQueryUsing(function (EloquentBuilder $query) {
                 $now = now();
+
                 $query
                     ->where('is_available', true)
-                    ->where(function (EloquentBuilder $query) use ($now) {
-                        $query
-                            ->where(function (EloquentBuilder $query) use ($now) {
-                                $query
-                                    ->where('exact_time', true)
-                                    ->where('started_at', '>=', $now)
-                                    ->whereRaw(
-                                        'DATE_ADD(started_at, INTERVAL duration MINUTE) >= ?',
-                                        [$now]
-                                    );
-                            })
-                            ->orWhere(function (EloquentBuilder $query) use ($now) {
-                                $query
-                                    ->whereNotNull('expired_at')
-                                    ->where('expired_at', '>=', $now);
-                            });
+                    ->where(function (EloquentBuilder $q) use ($now) {
+                        // Mode waktu pasti: tampil selama belum lewat started_at + durasi
+                        $q->where(function (EloquentBuilder $q) use ($now) {
+                            $q->where('exact_time', true)
+                                ->whereRaw(
+                                    'DATE_ADD(started_at, INTERVAL duration MINUTE) >= ?',
+                                    [$now]
+                                );
+                        })
+                        // Mode rentang waktu: tampil selama belum lewat expired_at
+                        ->orWhere(function (EloquentBuilder $q) use ($now) {
+                            $q->where('exact_time', false)
+                                ->where('expired_at', '>=', $now);
+                        });
                     });
             })
             ->recordTitleAttribute('title')
@@ -84,12 +76,10 @@ class ExamResource extends Resource
                     ->color('primary')
                     ->button()
                     ->disabled(fn ($record) => $record->started_at >= now())
-                    ->url(fn ($record) => 
-                        route(
-                            StartingExam::getRouteName(),
-                            ['exam' => $record]
-                        )
-                    ),
+                    ->url(fn ($record) => route(
+                        StartingExam::getRouteName(),
+                        ['exam' => $record]
+                    )),
             ]);
     }
 
@@ -97,7 +87,7 @@ class ExamResource extends Resource
     {
         return [
             'index' => ManageExams::route('/'),
-            'mulai' => StartingExam::route('/{exam}/mulai')
+            'mulai' => StartingExam::route('/{exam}/mulai'),
         ];
     }
 }

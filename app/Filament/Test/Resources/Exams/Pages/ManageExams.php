@@ -11,4 +11,5 @@ class ManageExams extends ManageRecords
     protected static string $resource = 
     ExamResource::class;
 
+    protected static ?string $title = 'Daftar Ujian';
 }

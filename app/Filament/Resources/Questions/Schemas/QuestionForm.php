@@ -35,7 +35,7 @@ class QuestionForm
                         // Bagian Soal
                         RichEditor::make('payload')
                             ->label('Pertanyaan')
-                            ->fileAttachmentsDisk('publik')
+                            ->fileAttachmentsDisk('public')
                             ->fileAttachmentsDirectory('question-images')
                             ->required()
                             ->columnSpanFull(),

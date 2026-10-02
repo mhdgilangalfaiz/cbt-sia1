@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Test\Pages\StudentProfile;
 use App\Filament\Test\Pages\StudentLogin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -27,7 +28,9 @@ class TestPanelProvider extends PanelProvider
         return $panel
             ->id('test')
             ->path('ujian')
+            ->brandName('Siswa')
             ->login(StudentLogin::class)
+            ->profile(StudentProfile::class)
             ->colors([
                 'primary' => Color::Emerald,
             ])

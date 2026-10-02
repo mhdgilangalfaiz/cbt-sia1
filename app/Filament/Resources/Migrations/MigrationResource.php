@@ -25,9 +25,11 @@ class MigrationResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCircleStack;
 
-    protected static ?string $recordTitleAttribute = 'migration';
+    protected static string|UnitEnum|null $navigationGroup = 'UTS';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Basis Data';
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $recordTitleAttribute = 'migration';
 
     protected static ?string $modelLabel = 'Migration';
 

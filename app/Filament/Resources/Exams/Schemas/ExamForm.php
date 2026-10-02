@@ -15,6 +15,7 @@ class ExamForm
         return $schema
             ->components([
                 TextInput::make('title')
+                    ->label('Nama Ujian')
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),

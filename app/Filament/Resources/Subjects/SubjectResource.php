@@ -39,9 +39,11 @@ class SubjectResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBookOpen;
 
-    protected static ?string $recordTitleAttribute = 'name';
+    protected static string|UnitEnum|null $navigationGroup = 'Ujian';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Basis Data';
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $modelLabel = 'Pelajaran';
 

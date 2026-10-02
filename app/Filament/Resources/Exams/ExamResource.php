@@ -17,12 +17,19 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ExamResource extends Resource
 {
     protected static ?string $model = Exam::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Ujian';
+
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $navigationLabel = 'Exams';
 
     protected static ?string $recordTitleAttribute = 'title';
 
